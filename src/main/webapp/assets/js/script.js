@@ -100,3 +100,7 @@ addEventOnElem(window, "scroll", scrollReveal);
 logBtn.addEventListener("click",()=>{
     window.location.href = "userLogin.jsp";
 })
+
+cartBtn.addEventListener("click",()=>{
+    window.location.href = "cart.jsp";
+})

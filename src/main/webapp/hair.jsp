@@ -104,26 +104,6 @@
                 <ul class="navbar-list">
                     <h1>Hair Wellness</h1>
 
-                    <!-- <li>
-                      <a href="#home" class="navbar-link has-after">Home</a>
-                    </li>
-
-                    <li>
-                      <a href="#collection" class="navbar-link has-after">Collection</a>
-                    </li>
-
-                    <li>
-                      <a href="#shop" class="navbar-link has-after">Shop</a>
-                    </li>
-
-                    <li>
-                      <a href="#offer" class="navbar-link has-after">Offer</a>
-                    </li>
-
-                    <li>
-                      <a href="#blog" class="navbar-link has-after">Blog</a>
-                    </li> -->
-
                 </ul>
             </nav>
 

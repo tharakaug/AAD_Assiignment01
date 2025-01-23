@@ -84,12 +84,12 @@
           <span class="btn-badge">0</span>
         </button>
 
-        <button class="header-action-btn" aria-label="cart item">
-          <data class="btn-text" value="0">$0.00</data>
+        <button class="header-action-btn" aria-label="cart item" id="cartBtn">
+<%--          <data class="btn-text" value="0">$0.00</data>--%>
 
           <ion-icon name="bag-handle-outline" aria-hidden="true" aria-hidden="true"></ion-icon>
 
-          <span class="btn-badge">0</span>
+<%--          <span class="btn-badge">0</span>--%>
         </button>
 
       </div>
