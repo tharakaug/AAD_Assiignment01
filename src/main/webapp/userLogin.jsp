@@ -21,33 +21,53 @@
 <div class="container">
     <div class="forms-container">
         <div class="signin-signup" >
-            <form action="#" method="post" class="sign-in-form">
+            <form action="user_login" method="post" class="sign-in-form">
                 <h2 class="title">Sign in</h2>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
-                    <input type="text" name="name" placeholder="Username" />
+                    <input type="email" name="email" placeholder="Email" />
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
                     <input type="password" name="password" placeholder="Password" />
                 </div>
-                <input type="submit" value="Login" class="btn solid" />
-                <!-- <p class="social-text">Or Sign in with social platforms</p> -->
-                <!-- <div class="social-media">
-                  <a href="#" class="social-icon">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" class="social-icon">
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                  <a href="#" class="social-icon">
-                    <i class="fab fa-google"></i>
-                  </a>
-                  <a href="#" class="social-icon">
-                    <i class="fab fa-linkedin-in"></i>
-                  </a>
-                </div> -->
+                <div>
+
+                                        <label>
+                                            <input type="radio" name="role" value="ADMIN" required> Admin
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="role" value="CUSTOMER" required> Customer
+                                        </label>
+                                    </div>
+
+                <input type="submit" value="Login" class="btn" />
             </form>
+
+<%--            <form action="/user_login" method="post">--%>
+<%--                <div>--%>
+<%--                    <label for="email">Email:</label>--%>
+<%--                    <input type="email" id="email" name="email" placeholder="Email" required>--%>
+<%--                </div>--%>
+<%--                <div>--%>
+<%--                    <label for="password">Password:</label>--%>
+<%--                    <input type="password" id="password" name="password" placeholder="Password" required>--%>
+<%--                </div>--%>
+<%--                <div>--%>
+<%--                    <label>Select Role:</label>--%>
+<%--                    <label>--%>
+<%--                        <input type="radio" name="role" value="ADMIN" required> Admin--%>
+<%--                    </label>--%>
+<%--                    <label>--%>
+<%--                        <input type="radio" name="role" value="CUSTOMER" required> Customer--%>
+<%--                    </label>--%>
+<%--                </div>--%>
+<%--                <button type="submit">Login</button>--%>
+<%--            </form>--%>
+
+
+
+
             <form action="user-Servlet" method="post" class="sign-up-form">
                 <h2 class="title">Sign up</h2>
                 <div class="input-field">
@@ -63,25 +83,8 @@
                     <input type="password" name="password" placeholder="Password" />
                 </div>
 
-<%--                <a href="userLogin.jsp" class="btn" type="submit" style="align-content: center; text-align: center; text-decoration: none" >Sign up</a>--%>
                 <input type="submit" class="btn" value="Sign up">
 
-
-                <!-- <p class="social-text">Or Sign up with social platforms</p>
-                <div class="social-media">
-                  <a href="#" class="social-icon">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" class="social-icon">
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                  <a href="#" class="social-icon">
-                    <i class="fab fa-google"></i>
-                  </a>
-                  <a href="#" class="social-icon">
-                    <i class="fab fa-linkedin-in"></i>
-                  </a>
-                </div> -->
             </form>
         </div>
     </div>

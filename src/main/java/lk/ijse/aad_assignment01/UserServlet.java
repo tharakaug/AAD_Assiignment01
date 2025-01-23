@@ -29,7 +29,7 @@ public class UserServlet extends HttpServlet {
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (name,email, password) VALUES (?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (name,email,password) VALUES (?,?,?)");
 
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, email);
