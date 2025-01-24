@@ -104,3 +104,7 @@ logBtn.addEventListener("click",()=>{
 cartBtn.addEventListener("click",()=>{
     window.location.href = "cart.jsp";
 })
+
+adLogBtn.addEventListener("click",()=>{
+    window.location.href = "userLogin.jsp";
+})
