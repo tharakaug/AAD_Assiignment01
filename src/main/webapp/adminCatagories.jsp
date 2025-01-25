@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="lk.ijse.aad_assignment01.CategoryDTO" %><%--
   Created by IntelliJ IDEA.
   User: USER
   Date: 1/24/2025
@@ -87,9 +88,9 @@
                 <ul class="navbar-list">
                     <%--          <h1>Skin Wellness</h1>--%>
 
-                    <li>
-                        <a href="adminDashboard.jsp" class="navbar-link has-after">Home</a>
-                    </li>
+<%--                    <li>--%>
+<%--                        <a href="adminDashboard.jsp" class="navbar-link has-after">Home</a>--%>
+<%--                    </li>--%>
 
                         <li>
                             <a href="adminCatagories.jsp" class="navbar-link has-after">Category Manage</a>
@@ -124,7 +125,16 @@
 
 <div style="margin-left: 100px; margin-right: 100px;" >
     <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Category</button>
+    <button type="button"
+            class="btn btn-product btn-primary mb-5 text-right"
+            style="border: white 1px solid; border-radius: 5px; margin-top: 3rem; padding: 5px 22px; background-color: yellow; color: blue;"
+            onclick="window.location.href='/AAD_Assignment01_war_exploded/category-all';">
+        View All Categories
+    </button>
 
+    <% List <CategoryDTO> categoryList = (List<CategoryDTO>) request.getAttribute("categoryList");
+    if (categoryList != null && !categoryList.isEmpty()) {
+    %>
 
     <table class="table table-bordered">
         <thead>
@@ -133,22 +143,31 @@
             <th>Name</th>
             <th>Description</th>
             <th>Image</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
+        <% for (CategoryDTO category : categoryList) { %>
         <tr>
-            <td></td >
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><%= category.getId()%></td >
+            <td><%= category.getName()%></td>
+            <td><%= category.getDescription()%></td>
+            <td><img src="<%= category.getImage() %>"></td>
             <td>
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal" onclick="populateEditModal(1)">Edit</button>
-                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteProductModal" onclick="setDeleteConfirmation(1)">Delete</button>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal" onclick="populateEditModal('<%= category.getId() %>','<%= category.getName() %>', '<%= category.getDescription() %>', '<%= category.getImage() %>')">Update</button>
+                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteProductModal" onclick="setDeleteConfirmation('<%= category.getId() %>')">Delete</button>
             </td>
         </tr>
-        <!-- More rows can be dynamically added -->
+        <% } %>
         </tbody>
     </table>
+    <%
+    } else {
+    %>
+    <p>No product found.</p>
+    <%
+        }
+    %>
 </div>
 
 <!-- Add Product Modal -->
@@ -191,42 +210,46 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                <h5 class="modal-title" id="editProductModalLabel">Update Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editProductForm">
+                <form id="updatecategoryForm" action="category-update" method="post">
                     <div class="mb-3">
-                        <label for="editCategory" class="form-label">Category</label>
-                        <select class="form-select" id="editCategory" required>
-                            <option value="" selected disabled>Select a category</option>
-                            <option value="electronics">Skin Wellness</option>
-                            <option value="appliances">Hair Wellness</option>
-                            <option value="clothing">Baby Care</option>
-                        </select>
+                        <label for="update_category_id" class="form-label">Category ID</label>
+                        <input type="text" class="form-control" name="update_category_id"
+                               id="update_category_id">
                     </div>
                     <div class="mb-3">
-                        <label for="editProductName" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="editProductName" required>
+                        <label for="update_category_id" class="form-label">Category Name</label>
+                        <input type="text" class="form-control" name="update_category_name"
+                               id="update_category_name">
                     </div>
                     <div class="mb-3">
-                        <label for="editDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="editDescription" rows="3" required></textarea>
+                        <label for="update_category_description" class="form-label">Description</label>
+                        <input type="text" class="form-control" name="update_category_description"
+                               id="update_category_description" placeholder="Enter category description"
+                               required>
                     </div>
-                    <div class="mb-3">
-                        <label for="editPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="editPrice" required>
+                    <div id="current_category_image_wrapper" class="mb-3" style="display: none;">
+                        <label class="form-label">Current Product Image</label>
+                        <img id="current_category_image" src="" name="current_category_image"
+                             alt="category Image" style="width: 100%; max-height: 200px;">
                     </div>
-                    <div class="mb-3">
-                        <label for="editStock" class="form-label">Stock</label>
-                        <input type="number" class="form-control" id="editStock" required>
+                    <div class="form-group mb-4">
+                        <label>Attach New Product Image</label>
+                        <input type="file" id="update_category_image" name="update_category_image"/>
                     </div>
-                    <div class="mb-3">
-                        <label for="editProductImage" class="form-label">Product Image</label>
-                        <input type="file" class="form-control" id="editProductImage" accept="image/*">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button id="btn_update_category" type="submit" class="btn btn-primary">Update
+                        </button>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Product</button>
                 </form>
+
+
             </div>
         </div>
     </div>
@@ -263,21 +286,62 @@
     <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
 </a>
 
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script>
-    function populateEditModal(productId) {
-        // Populate the Edit Modal with product details (use AJAX or data from your database)
-        document.getElementById('editProductName').value = "Laptop";
-        document.getElementById('editDescription').value = "High-performance laptop";
-        document.getElementById('editPrice').value = "1000";
-        document.getElementById('editStock').value = "50";
-        document.getElementById('editCategory').value = "electronics";
-    }
 
-    function setDeleteConfirmation(productId) {
-        // Set product ID to delete (use AJAX or additional logic if needed)
-        console.log("Preparing to delete product with ID: " + productId);
-    }
+    const populateEditModal = (categoryId,categoryName, categoryDescription, categoryImage) => {
+        // Populate other modal fields
+        document.getElementById('update_category_id').value = categoryId || '';
+        document.getElementById('update_category_name').value = categoryName || '';
+        document.getElementById('update_category_description').value = categoryDescription || '';
+        // document.getElementById('update_product_quantity').value = categoryImage || '';
+
+        // Show the current image (if any) in an <img> element
+        if (categoryImage) {
+            document.getElementById('current_category_image').src = categoryImage;
+            document.getElementById('current_category_image_wrapper').style.display = 'block'; // Make sure it's visible
+        } else {
+            document.getElementById('current_category_image_wrapper').style.display = 'none'; // Hide if no image
+        }
+
+        // Show the modal
+        $('#updateCategoryModal').modal('show');
+    };
+
+    const setDeleteConfirmation = (productID) => {
+        if (confirm('Are you sure you want to delete this product?')) {
+            // Use Fetch API to send a POST request for deletion
+            fetch('/AAD_Assingment_01_war_exploded/product-delete', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'productID': productID
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Redirect or update the page after deletion
+                        window.location.href = '/AAD_Assingment_01_war_exploded/all-product-servlet'; // Redirect to all products page
+
+                    } else {
+                        alert("Error deleting the product.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred.");
+                });
+        }
+    };
+
+
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

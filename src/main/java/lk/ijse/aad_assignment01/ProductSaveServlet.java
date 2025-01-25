@@ -24,19 +24,22 @@ public class ProductSaveServlet extends HttpServlet {
         String description = req.getParameter("description");
         String price = req.getParameter("price");
         String stock = req.getParameter("stock");
+        int categoryId = Integer.parseInt(req.getParameter("categoryId"));
         String image = req.getParameter("productImage");
 
-        System.out.println(name + " " + description + " " + price + " " + stock + " " + image);
+        System.out.println(name + " " + description + " " + price + " " + stock + " " + categoryId + " " + image);
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "INSERT INTO products (name, description, price, stock_quantity, image_url) VALUES (?, ?, ?, ?, ?)")) {
+                     "INSERT INTO products (name,category_id, description, price, stock_quantity, image_url) VALUES (?, ?, ?, ?, ?, ?)")) {
 
             preparedStatement.setString(1, name);
-            preparedStatement.setString(2, description);
-            preparedStatement.setString(3, price);
-            preparedStatement.setString(4, stock);
-            preparedStatement.setString(5, image);
+            preparedStatement.setInt(2, categoryId);
+            preparedStatement.setString(3, description);
+            preparedStatement.setString(4, price);
+            preparedStatement.setString(5, stock);
+            preparedStatement.setString(6, image);
+
 
             int i = preparedStatement.executeUpdate();
 

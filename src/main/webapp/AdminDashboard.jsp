@@ -78,9 +78,9 @@
         <ul class="navbar-list">
 <%--          <h1>Skin Wellness</h1>--%>
 
-           <li>
-            <a href="adminDashboard.jsp" class="navbar-link has-after">Home</a>
-          </li>
+<%--           <li>--%>
+<%--            <a href="adminDashboard.jsp" class="navbar-link has-after">Home</a>--%>
+<%--          </li>--%>
 
   <li>
     <a href="adminCatagories.jsp" class="navbar-link has-after">Category Manage</a>

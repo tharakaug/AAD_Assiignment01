@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="lk.ijse.aad_assignment01.ProductDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -80,9 +82,9 @@
         <ul class="navbar-list">
           <%--          <h1>Skin Wellness</h1>--%>
 
-          <li>
-            <a href="adminDashboard.jsp" class="navbar-link has-after">Home</a>
-          </li>
+<%--          <li>--%>
+<%--            <a href="adminDashboard.jsp" class="navbar-link has-after">Home</a>--%>
+<%--          </li>--%>
 
             <li>
               <a href="adminCatagories.jsp" class="navbar-link has-after">Category Manage</a>
@@ -96,13 +98,6 @@
             <a href="adminCustomer.jsp" class="navbar-link has-after">Customer Manage</a>
           </li>
 
-          <%--          <li>--%>
-          <%--            <a href="#offer" class="navbar-link has-after">Offer</a>--%>
-          <%--          </li>--%>
-
-          <%--          <li>--%>
-          <%--            <a href="#blog" class="navbar-link has-after">Blog</a>--%>
-          <%--          </li>--%>
 
         </ul>
       </nav>
@@ -117,35 +112,64 @@
 
 <div style="margin-left: 100px; margin-right: 100px;" >
 <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
+  <button type="button"
+          class="btn btn-product btn-primary mb-5 text-right"
+          style="border: white 1px solid; border-radius: 5px; margin-top: 3rem; padding: 5px 22px; background-color: yellow; color: blue;"
+          onclick="window.location.href='/AAD_Assignment01_war_exploded/all-product-servlet';">
+    View All Products
+  </button>
+
+
+  <%
+    List<ProductDTO> productList = (List<ProductDTO>) request.getAttribute("productList");
+    if (productList != null && !productList.isEmpty()) {
+
+
+  %>
+
 <table class="table table-bordered">
   <thead>
   <tr>
     <th>Product Id</th>
-    <th>Category</th>
     <th>Name</th>
+    <th>Category Id</th>
     <th>Description</th>
     <th>Price</th>
     <th>Stock</th>
     <th>Image</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
+  <%
+    for (ProductDTO product : productList) {
+
+  %>
   <tr>
-    <td>1</td>
-    <td>Electronics</td>
-    <td>Laptop</td>
-    <td>High-performance laptop</td>
-    <td>$1000</td>
-    <td>50</td>
-    <td><img src="Assets/Images/laptop.png" alt="Laptop" class="table-img"></td>
+    <td><%= product.getId() %></td>
+    <td><%= product.getName() %></td>
+    <td><%= product.getCategory_id() %></td>
+    <td><%= product.getDescription() %></td>
+    <td><%= product.getPrice() %></td>
+    <td><%= product.getStock() %></td>
+    <td><img src="<%= product.getImage() %>" alt="<%= product.getName() %>" class="table-img"></td>
+<%--    <td><img src="Assets/Images/laptop.png" alt="Laptop" class="table-img"></td>--%>
     <td>
-      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal" onclick="populateEditModal(1)">Edit</button>
-      <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteProductModal" onclick="setDeleteConfirmation(1)">Delete</button>
+      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal" onclick="populateEditModal('<%= product.getId() %>','<%= product.getName() %>', '<%= product.getPrice() %>', '<%= product.getStock() %>', '<%= product.getDescription() %>', '<%= product.getImage() %>')">Update</button>
+      <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteProductModal" onclick="setDeleteConfirmation('<%= product.getId() %>')">Delete</button>
     </td>
   </tr>
+  <% } %>
   <!-- More rows can be dynamically added -->
   </tbody>
 </table>
+  <%
+  } else {
+  %>
+  <p>No product found.</p>
+  <%
+    }
+  %>
 </div>
 
 <!-- Add Product Modal -->
@@ -160,15 +184,15 @@
 
 
         <form id="addProductForm" action="product-save" method="post">
-          <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
-            <select class="form-select" id="category" required>
-              <option value="" selected disabled>Select a category</option>
-              <option value="electronics">Skin Wellness</option>
-              <option value="appliances">Hair Wellness</option>
-              <option value="clothing">Baby Care</option>
-            </select>
-          </div>
+<%--          <div class="mb-3">--%>
+<%--            <label for="category" class="form-label">Category</label>--%>
+<%--            <select class="form-select" id="category" required>--%>
+<%--              <option value="" selected disabled>Select a category</option>--%>
+<%--              <option value="electronics">Skin Wellness</option>--%>
+<%--              <option value="appliances">Hair Wellness</option>--%>
+<%--              <option value="clothing">Baby Care</option>--%>
+<%--            </select>--%>
+<%--          </div>--%>
           <div class="mb-3">
             <label for="productName" class="form-label">Product Name</label>
             <input type="text" class="form-control" id="productName" name="productName" required>
@@ -184,6 +208,10 @@
           <div class="mb-3">
             <label for="stock" class="form-label">Stock</label>
             <input type="number" class="form-control" id="stock" name="stock" required>
+          </div>
+          <div class="mb-3">
+            <label for="stock" class="form-label">Category ID</label>
+            <input type="number" class="form-control" id="categoryId" name="categoryId" required>
           </div>
           <div class="mb-3">
             <label for="productImage" class="form-label">Product Image</label>
@@ -207,61 +235,83 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="editProductForm">
+
+
+        <form id="updateProductForm" action="product-update" method="post">
           <div class="mb-3">
-            <label for="editCategory" class="form-label">Category</label>
-            <select class="form-select" id="editCategory" required>
-              <option value="" selected disabled>Select a category</option>
-              <option value="electronics">Skin Wellness</option>
-              <option value="appliances">Hair Wellness</option>
-              <option value="clothing">Baby Care</option>
-            </select>
+            <label for="update_product_id" class="form-label">Product ID</label>
+            <input type="text" class="form-control" name="update_product_id"
+                   id="update_product_id">
           </div>
           <div class="mb-3">
-            <label for="editProductName" class="form-label">Product Name</label>
-            <input type="text" class="form-control" id="editProductName" required>
+            <label for="update_product_id" class="form-label">Product Name</label>
+            <input type="text" class="form-control" name="update_product_name"
+                   id="update_product_name">
           </div>
           <div class="mb-3">
-            <label for="editDescription" class="form-label">Description</label>
-            <textarea class="form-control" id="editDescription" rows="3" required></textarea>
+            <label for="update_product_description" class="form-label">Description</label>
+            <input type="text" class="form-control" name="update_product_description"
+                   id="update_product_description" placeholder="Enter product description"
+                   required>
           </div>
           <div class="mb-3">
-            <label for="editPrice" class="form-label">Price</label>
-            <input type="number" class="form-control" id="editPrice" required>
+            <label for="update_product_price" class="form-label">Price</label>
+            <input type="number" class="form-control" name="update_product_price"
+                   id="update_product_price" placeholder="Enter product price" required>
           </div>
           <div class="mb-3">
-            <label for="editStock" class="form-label">Stock</label>
-            <input type="number" class="form-control" id="editStock" required>
+            <label for="update_product_quantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" name="update_product_quantity"
+                   id="update_product_quantity" placeholder="Enter product quantity"
+                   required>
           </div>
           <div class="mb-3">
-            <label for="editProductImage" class="form-label">Product Image</label>
-            <input type="file" class="form-control" id="editProductImage" accept="image/*">
+            <label for="update_product_category" class="form-label">Category ID</label>
+            <input type="text" class="form-control" name="update_product_category"
+                   id="update_product_category" placeholder="Enter category ID" required>
           </div>
-          <button type="submit" class="btn btn-primary">Update Product</button>
+          <div id="current_product_image_wrapper" class="mb-3" style="display: none;">
+            <label class="form-label">Current Product Image</label>
+            <img id="current_product_image" src="" name="current_product_image"
+                 alt="Product Image" style="width: 100%; max-height: 200px;">
+          </div>
+          <div class="form-group mb-4">
+            <label>Attach New Product Image</label>
+            <input type="file" id="update_product_image" name="update_product_image"/>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button id="btn_update_product" type="submit" class="btn btn-primary">Update
+            </button>
+          </div>
         </form>
+
+
       </div>
     </div>
   </div>
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteProductModalLabel">Confirm Deletion</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to delete this product?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger">Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
+<%--<div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">--%>
+<%--  <div class="modal-dialog">--%>
+<%--    <div class="modal-content">--%>
+<%--      <div class="modal-header">--%>
+<%--        <h5 class="modal-title" id="deleteProductModalLabel">Confirm Deletion</h5>--%>
+<%--        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--%>
+<%--      </div>--%>
+<%--      <div class="modal-body">--%>
+<%--        Are you sure you want to delete this product?--%>
+<%--      </div>--%>
+<%--      <div class="modal-footer">--%>
+<%--        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>--%>
+<%--        <button type="button" class="btn btn-danger">Delete</button>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+<%--  </div>--%>
+<%--</div>--%>
 
 
 
@@ -274,23 +324,6 @@
 <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
   <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
 </a>
-
-
-<script>
-  function populateEditModal(productId) {
-    // Populate the Edit Modal with product details (use AJAX or data from your database)
-    document.getElementById('editProductName').value = "Laptop";
-    document.getElementById('editDescription').value = "High-performance laptop";
-    document.getElementById('editPrice').value = "1000";
-    document.getElementById('editStock').value = "50";
-    document.getElementById('editCategory').value = "electronics";
-  }
-
-  function setDeleteConfirmation(productId) {
-    // Set product ID to delete (use AJAX or additional logic if needed)
-    console.log("Preparing to delete product with ID: " + productId);
-  }
-</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
@@ -307,5 +340,61 @@
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+
+  const populateEditModal = (productID, productName, productPrice, productQuantity, productDescription, productCategory, productImageUrl) => {
+    // Populate other modal fields
+    document.getElementById('update_product_id').value = productID || '';
+    document.getElementById('update_product_name').value = productName || '';
+    document.getElementById('update_product_price').value = productPrice || '';
+    document.getElementById('update_product_quantity').value = productQuantity || '';
+    document.getElementById('update_product_description').value = productDescription || '';
+    document.getElementById('update_product_category').value = productCategory || '';
+
+    // Show the current image (if any) in an <img> element
+    if (productImageUrl) {
+      document.getElementById('current_product_image').src = productImageUrl;
+      document.getElementById('current_product_image_wrapper').style.display = 'block'; // Make sure it's visible
+    } else {
+      document.getElementById('current_product_image_wrapper').style.display = 'none'; // Hide if no image
+    }
+
+    // Show the modal
+    $('#updateProductModal').modal('show');
+  };
+
+  const setDeleteConfirmation = (productID) => {
+    if (confirm('Are you sure you want to delete this product?')) {
+       // Use Fetch API to send a POST request for deletion
+      fetch('/AAD_Assingment_01_war_exploded/product-delete', {
+        method: 'POST',
+        body: new URLSearchParams({
+          'productID': productID
+        }),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+              .then(response => {
+                if (response.ok) {
+                  // Redirect or update the page after deletion
+                  window.location.href = '/AAD_Assingment_01_war_exploded/all-product-servlet'; // Redirect to all products page
+
+                } else {
+                  alert("Error deleting the product.");
+                }
+              })
+              .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred.");
+              });
+    }
+  };
+
+
+</script>
 </body>
 </html>
