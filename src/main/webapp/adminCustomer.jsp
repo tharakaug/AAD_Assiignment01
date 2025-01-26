@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="lk.ijse.aad_assignment01.ProductDTO" %>
+<%@ page import="lk.ijse.aad_assignment01.AdminCustomerDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -111,18 +112,18 @@
 
 
 <div style="margin-left: 100px; margin-right: 100px;" >
-    <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
+    <button class="btn btn-success mb-4" data-bs-toggle="modal" style="border: white 1px solid; border-radius: 5px; margin-top: 3rem;  padding: 5px 22px; background-color: #ffbb01; font-size: 17px; font-weight:bold ;color: white;" data-bs-target="#addProductModal">Add Admin</button>
     <button type="button"
             class="btn btn-product btn-primary mb-5 text-right"
-            style="border: white 1px solid; border-radius: 5px; margin-top: 3rem; padding: 5px 22px; background-color: yellow; color: blue;"
-            onclick="window.location.href='/AAD_Assignment01_war_exploded/all-product-servlet';">
-        View All Products
+            style="border: white 1px solid; border-radius: 5px; margin-top: 4.5rem; padding: 5px 22px; background-color: #ffbb01; font-size: 17px; font-weight: bold; color: white;"
+            onclick="window.location.href='/AAD_Assignment01_war_exploded/admin-customer-all';">
+        View All Usrs
     </button>
 
 
     <%
-        List<ProductDTO> productList = (List<ProductDTO>) request.getAttribute("productList");
-        if (productList != null && !productList.isEmpty()) {
+        List<AdminCustomerDTO> adminCustomerList = (List<AdminCustomerDTO>) request.getAttribute("adminCustomerList");
+        if (adminCustomerList != null && !adminCustomerList.isEmpty()) {
 
 
     %>
@@ -130,33 +131,33 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Product Id</th>
+            <th>User Id</th>
+            <th>Email</th>
+            <th>Password</th>
             <th>Name</th>
-            <th>Category Id</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Stock</th>
+            <th>Role</th>
+            <th>Is Active</th>
             <th>Image</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <%
-            for (ProductDTO product : productList) {
+            for (AdminCustomerDTO customer : adminCustomerList) {
 
         %>
         <tr>
-            <td><%= product.getId() %></td>
-            <td><%= product.getName() %></td>
-            <td><%= product.getCategory_id() %></td>
-            <td><%= product.getDescription() %></td>
-            <td><%= product.getPrice() %></td>
-            <td><%= product.getStock() %></td>
-            <td><img src="<%= product.getImage() %>" alt="<%= product.getName() %>" class="table-img"></td>
+            <td><%= customer.getId() %></td>
+            <td><%= customer.getEmail()%></td>
+            <td><%= customer.getPassword() %></td>
+            <td><%= customer.getName() %></td>
+            <td><%= customer.getRole() %></td>
+            <td><%= customer.getActive() %></td>
+            <td><img src="<%= customer.getImage() %>" alt="<%= customer.getName() %>" class="table-img"></td>
             <%--    <td><img src="Assets/Images/laptop.png" alt="Laptop" class="table-img"></td>--%>
             <td>
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal" onclick="populateEditModal('<%= product.getId() %>','<%= product.getName() %>', '<%= product.getPrice() %>', '<%= product.getStock() %>', '<%= product.getDescription() %>', '<%= product.getImage() %>')">Update</button>
-                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteProductModal" onclick="setDeleteConfirmation('<%= product.getId() %>')">Delete</button>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: darkblue; font-size: 14px; font-weight:bold ;color: white;" data-bs-target="#editCustomerModal" onclick="populateEditModal('<%= customer.getId() %>','<%= customer.getEmail() %>', '<%= customer.getPassword() %>', '<%= customer.getName() %>', '<%= customer.getRole() %>', '<%= customer.getImage() %>')">Update</button>
+                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: red; font-size: 14px; font-weight:bold ;color: white;" data-bs-target="#deleteCustomerModal" onclick="setDeleteConfirmation('<%= customer.getId() %>')">Delete</button>
             </td>
         </tr>
         <% } %>
@@ -173,51 +174,42 @@
 </div>
 
 <!-- Add Product Modal -->
-<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+<div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+                <h5 class="modal-title" id="addCustomerModalLabel">Add Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
 
-                <form id="addProductForm" action="product-save" method="post">
-                    <%--          <div class="mb-3">--%>
-                    <%--            <label for="category" class="form-label">Category</label>--%>
-                    <%--            <select class="form-select" id="category" required>--%>
-                    <%--              <option value="" selected disabled>Select a category</option>--%>
-                    <%--              <option value="electronics">Skin Wellness</option>--%>
-                    <%--              <option value="appliances">Hair Wellness</option>--%>
-                    <%--              <option value="clothing">Baby Care</option>--%>
-                    <%--            </select>--%>
-                    <%--          </div>--%>
+                <form id="addCustomerForm" action="admin-customer-save" method="post">
                     <div class="mb-3">
-                        <label for="productName" class="form-label">Product Name</label>
+                        <label for="productName" class="form-label">Email</label>
                         <input type="text" class="form-control" id="productName" name="productName" required>
                     </div>
                     <div class="mb-3">
-                        <label for="description" class="form-label">Description</label>
+                        <label for="description" class="form-label">Password</label>
                         <textarea class="form-control" id="description" rows="3" name="description" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="price" class="form-label">Price</label>
+                        <label for="price" class="form-label">Name</label>
                         <input type="number" class="form-control" id="price" name="price" required>
                     </div>
                     <div class="mb-3">
-                        <label for="stock" class="form-label">Stock</label>
+                        <label for="stock" class="form-label">Role</label>
                         <input type="number" class="form-control" id="stock" name="stock" required>
                     </div>
                     <div class="mb-3">
-                        <label for="stock" class="form-label">Category ID</label>
+                        <label for="stock" class="form-label">Is Active</label>
                         <input type="number" class="form-control" id="categoryId" name="categoryId" required>
                     </div>
                     <div class="mb-3">
-                        <label for="productImage" class="form-label">Product Image</label>
+                        <label for="productImage" class="form-label">Image</label>
                         <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save Product</button>
+                    <button type="submit" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: green; font-size: 14px; font-weight:bold ;color: white;" class="btn btn-primary">Save User</button>
                 </form>
 
 
@@ -280,10 +272,10 @@
                         <input type="file" id="update_product_image" name="update_product_image"/>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-secondary me-2" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: red; font-size: 14px; font-weight:bold ;color: white;" data-bs-dismiss="modal">
                             Cancel
                         </button>
-                        <button id="btn_update_product" type="submit" class="btn btn-primary">Update
+                        <button id="btn_update_product" type="submit" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: darkblue; font-size: 14px; font-weight:bold ;color: white;" class="btn btn-primary">Update
                         </button>
                     </div>
                 </form>
@@ -332,7 +324,7 @@
 <!--
   - custom js link
 -->
-<script src="./assets/js/script.js" defer></script>
+<script src="./assets/js/adminCustomer.js" defer></script>
 
 <!--
   - ionicon link

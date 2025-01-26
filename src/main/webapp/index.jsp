@@ -280,7 +280,7 @@
 
               <p class="card-text">Starting at Rs 1500</p>
 
-              <a href="skin.jsp" class="btn-link" target="_blank">
+              <a href="<%= request.getContextPath() %>/skin-servlet" class="btn-link" target="_blank">
                 <span class="span">Shop Now</span>
 
                 <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
@@ -298,7 +298,7 @@
 
               <p class="card-text">Starting at Rs 1500</p>
 
-              <a href="hair.jsp" class="btn-link" target="_blank">
+              <a href="<%= request.getContextPath() %>/hair-servlet" class="btn-link" target="_blank">
                 <span class="span">Shop Now</span>
 
                 <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>

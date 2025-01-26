@@ -47,9 +47,11 @@ public class ProductSaveServlet extends HttpServlet {
             connection.close();
 
             if (i > 0) {
-                resp.sendRedirect("adminDashboard.jsp");
+                String message = "Product saved successfully";
+                resp.sendRedirect("adminProduct.jsp?message=" + message);
             } else {
-                resp.sendRedirect("adminDashboard.jsp");
+                String message = "Product save failed";
+                resp.sendRedirect("adminProduct.jsp?message=" + message);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

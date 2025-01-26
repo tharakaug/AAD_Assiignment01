@@ -124,10 +124,10 @@
 
 
 <div style="margin-left: 100px; margin-right: 100px;" >
-    <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Category</button>
+    <button class="btn btn-success mb-4" data-bs-toggle="modal" style="border: white 1px solid; border-radius: 5px; margin-top: 3rem;  padding: 5px 22px; background-color: #ffbb01; font-size: 17px; font-weight:bold ;color: white;" data-bs-target="#addProductModal">Add Category</button>
     <button type="button"
             class="btn btn-product btn-primary mb-5 text-right"
-            style="border: white 1px solid; border-radius: 5px; margin-top: 3rem; padding: 5px 22px; background-color: yellow; color: blue;"
+            style="border: white 1px solid; border-radius: 5px; margin-top: 4.5rem; padding: 5px 22px; background-color: #ffbb01; font-size: 17px; font-weight: bold; color: white;"
             onclick="window.location.href='/AAD_Assignment01_war_exploded/category-all';">
         View All Categories
     </button>
@@ -154,8 +154,8 @@
             <td><%= category.getDescription()%></td>
             <td><img src="<%= category.getImage() %>"></td>
             <td>
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal" onclick="populateEditModal('<%= category.getId() %>','<%= category.getName() %>', '<%= category.getDescription() %>', '<%= category.getImage() %>')">Update</button>
-                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteProductModal" onclick="setDeleteConfirmation('<%= category.getId() %>')">Delete</button>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: darkblue; font-size: 14px; font-weight:bold ;color: white;" data-bs-target="#editProductModal" onclick="populateEditModal('<%= category.getId() %>','<%= category.getName() %>', '<%= category.getDescription() %>', '<%= category.getImage() %>')">Update</button>
+                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: red; font-size: 14px; font-weight:bold ;color: white;" data-bs-target="#deleteProductModal" onclick="setDeleteConfirmation('<%= category.getId() %>')">Delete</button>
             </td>
         </tr>
         <% } %>
@@ -196,7 +196,7 @@
                         <label for="categoryImage" class="form-label">Category Image</label>
                         <input type="file" class="form-control" id="categoryImage" accept="image/*" name="categoryImage" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save Category</button>
+                    <button type="submit" class="btn btn-primary" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: green; font-size: 14px; font-weight:bold ;color: white;">Save Category</button>
                 </form>
 
 
@@ -204,6 +204,26 @@
         </div>
     </div>
 </div>
+<%
+    String message = request.getParameter("message");
+    if (message != null && !message.isEmpty()) {
+%>
+<script>
+    alert("<%= message %>");
+</script>
+<%
+    }
+%>
+<%
+    String error = request.getParameter("error");
+    if (error != null) {
+%>
+<script>
+    alert("<%= error %>");
+</script>
+<%
+        }
+    %>
 
 <!-- Edit Product Modal -->
 <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
@@ -241,10 +261,10 @@
                         <input type="file" id="update_category_image" name="update_category_image"/>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-secondary me-2" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: red; font-size: 14px; font-weight:bold ;color: white;" data-bs-dismiss="modal">
                             Cancel
                         </button>
-                        <button id="btn_update_category" type="submit" class="btn btn-primary">Update
+                        <button id="btn_update_category" type="submit" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: darkblue; font-size: 14px; font-weight:bold ;color: white;" class="btn btn-primary">Update
                         </button>
                     </div>
                 </form>
@@ -351,7 +371,7 @@
 <!--
   - custom js link
 -->
-<script src="./assets/js/script.js" defer></script>
+<script src="./assets/js/adminCategory.js" defer></script>
 
 <!--
   - ionicon link

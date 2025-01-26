@@ -1,4 +1,5 @@
-<%--
+<%@ page import="lk.ijse.aad_assignment01.ProductDTO" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: USER
   Date: 1/20/2025
@@ -170,14 +171,22 @@
 
 <ul class="has-scrollbar">
 
+    <%
+        List<ProductDTO> productList = (List<ProductDTO>) request.getAttribute("productList");
+        if (productList != null && !productList.isEmpty()) {
+            System.out.println(productList);
+
+    %>
+    <%
+        for (ProductDTO product : productList) {
+    %>
+
     <li class="scrollbar-item">
         <div class="shop-card">
 
             <div class="card-banner img-holder" style="--width: 540; --height: 720;">
-                <img src="./assets/images/h1.webp" width="540" height="720" loading="lazy"
+                <img src="./assets/images/<%= product.getImage() %>" width="540" height="720" loading="lazy"
                      alt="Facial cleanser" class="img-cover">
-
-                <!-- <span class="badge" aria-label="20% off">-20%</span> -->
 
                 <div class="card-actions">
 
@@ -201,300 +210,298 @@
                 <div class="price">
                     <!-- <del class="del">$39.00</del> -->
 
-                    <span class="span">Rs 2000</span>
+                    <span class="span">Rs <%= product.getPrice() %></span>
                 </div>
 
                 <h3>
-                    <a href="#" class="card-title">Virgin Coconut Hair Oil</a>
+                    <a href="#" class="card-title"><%= product.getName() %></a>
                 </h3>
-
-                <div class="card-rating">
-
-                    <div class="rating-wrapper" aria-label="5 start rating">
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                    </div>
-
-                    <p class="rating-text">5170 reviews</p>
-
-                </div>
 
             </div>
 
         </div>
     </li>
 
-    <li class="scrollbar-item">
-        <div class="shop-card">
+<%--    <li class="scrollbar-item">--%>
+<%--        <div class="shop-card">--%>
 
-            <div class="card-banner img-holder" style="--width: 540; --height: 720;">
-                <img src="./assets/images/h6.webp" width="540" height="720" loading="lazy"
-                     alt="Bio-shroom Rejuvenating Serum" class="img-cover">
+<%--            <div class="card-banner img-holder" style="--width: 540; --height: 720;">--%>
+<%--                <img src="./assets/images/h6.webp" width="540" height="720" loading="lazy"--%>
+<%--                     alt="Bio-shroom Rejuvenating Serum" class="img-cover">--%>
 
-                <div class="card-actions">
+<%--                <div class="card-actions">--%>
 
-                    <button class="action-btn" aria-label="add to cart">
-                        <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="add to cart">--%>
+<%--                        <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                    <button class="action-btn" aria-label="add to whishlist">
-                        <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="add to whishlist">--%>
+<%--                        <ion-icon name="star-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                    <button class="action-btn" aria-label="compare">
-                        <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="compare">--%>
+<%--                        <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                </div>
-            </div>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <div class="card-content">
+<%--            <div class="card-content">--%>
 
-                <div class="price">
-                    <span class="span">Rs 4200</span>
-                </div>
+<%--                <div class="price">--%>
+<%--                    <span class="span">Rs 4200</span>--%>
+<%--                </div>--%>
 
-                <h3>
-                    <a href="#" class="card-title">De-Stess Oil</a>
-                </h3>
+<%--                <h3>--%>
+<%--                    <a href="#" class="card-title">De-Stess Oil</a>--%>
+<%--                </h3>--%>
 
-                <div class="card-rating">
+<%--                <div class="card-rating">--%>
 
-                    <div class="rating-wrapper" aria-label="5 start rating">
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                    </div>
+<%--                    <div class="rating-wrapper" aria-label="5 start rating">--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                    </div>--%>
 
-                    <p class="rating-text">5170 reviews</p>
+<%--                    <p class="rating-text">5170 reviews</p>--%>
 
-                </div>
+<%--                </div>--%>
 
-            </div>
+<%--            </div>--%>
 
-        </div>
-    </li>
+<%--        </div>--%>
+<%--    </li>--%>
 
-    <li class="scrollbar-item">
-        <div class="shop-card">
+<%--    <li class="scrollbar-item">--%>
+<%--        <div class="shop-card">--%>
 
-            <div class="card-banner img-holder" style="--width: 540; --height: 720;">
-                <img src="./assets/images/h4.webp" width="540" height="720" loading="lazy"
-                     alt="Coffee Bean Caffeine Eye Cream" class="img-cover">
+<%--            <div class="card-banner img-holder" style="--width: 540; --height: 720;">--%>
+<%--                <img src="./assets/images/h4.webp" width="540" height="720" loading="lazy"--%>
+<%--                     alt="Coffee Bean Caffeine Eye Cream" class="img-cover">--%>
 
-                <div class="card-actions">
+<%--                <div class="card-actions">--%>
 
-                    <button class="action-btn" aria-label="add to cart">
-                        <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="add to cart">--%>
+<%--                        <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                    <button class="action-btn" aria-label="add to whishlist">
-                        <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="add to whishlist">--%>
+<%--                        <ion-icon name="star-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                    <button class="action-btn" aria-label="compare">
-                        <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="compare">--%>
+<%--                        <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                </div>
-            </div>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <div class="card-content">
+<%--            <div class="card-content">--%>
 
-                <div class="price">
-                    <span class="span">Rs 3000</span>
-                </div>
+<%--                <div class="price">--%>
+<%--                    <span class="span">Rs 3000</span>--%>
+<%--                </div>--%>
 
-                <h3>
-                    <a href="#" class="card-title">Night Treatment Hair Oil</a>
-                </h3>
+<%--                <h3>--%>
+<%--                    <a href="#" class="card-title">Night Treatment Hair Oil</a>--%>
+<%--                </h3>--%>
 
-                <div class="card-rating">
+<%--                <div class="card-rating">--%>
 
-                    <div class="rating-wrapper" aria-label="5 start rating">
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                    </div>
+<%--                    <div class="rating-wrapper" aria-label="5 start rating">--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                    </div>--%>
 
-                    <p class="rating-text">5170 reviews</p>
+<%--                    <p class="rating-text">5170 reviews</p>--%>
 
-                </div>
+<%--                </div>--%>
 
-            </div>
+<%--            </div>--%>
 
-        </div>
-    </li>
+<%--        </div>--%>
+<%--    </li>--%>
 
-    <li class="scrollbar-item">
-        <div class="shop-card">
+<%--    <li class="scrollbar-item">--%>
+<%--        <div class="shop-card">--%>
 
-            <div class="card-banner img-holder" style="--width: 540; --height: 720;">
-                <img src="./assets/images/h5.webp" width="540" height="720" loading="lazy"
-                     alt="Facial cleanser" class="img-cover">
+<%--            <div class="card-banner img-holder" style="--width: 540; --height: 720;">--%>
+<%--                <img src="./assets/images/h5.webp" width="540" height="720" loading="lazy"--%>
+<%--                     alt="Facial cleanser" class="img-cover">--%>
 
-                <div class="card-actions">
+<%--                <div class="card-actions">--%>
 
-                    <button class="action-btn" aria-label="add to cart">
-                        <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="add to cart">--%>
+<%--                        <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                    <button class="action-btn" aria-label="add to whishlist">
-                        <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="add to whishlist">--%>
+<%--                        <ion-icon name="star-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                    <button class="action-btn" aria-label="compare">
-                        <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="compare">--%>
+<%--                        <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                </div>
-            </div>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <div class="card-content">
+<%--            <div class="card-content">--%>
 
-                <div class="price">
-                    <span class="span">Rs 5500</span>
-                </div>
+<%--                <div class="price">--%>
+<%--                    <span class="span">Rs 5500</span>--%>
+<%--                </div>--%>
 
-                <h3>
-                    <a href="#" class="card-title">Hyderation Cleanser Oil</a>
-                </h3>
+<%--                <h3>--%>
+<%--                    <a href="#" class="card-title">Hyderation Cleanser Oil</a>--%>
+<%--                </h3>--%>
 
-                <div class="card-rating">
+<%--                <div class="card-rating">--%>
 
-                    <div class="rating-wrapper" aria-label="5 start rating">
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                    </div>
+<%--                    <div class="rating-wrapper" aria-label="5 start rating">--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                    </div>--%>
 
-                    <p class="rating-text">5170 reviews</p>
+<%--                    <p class="rating-text">5170 reviews</p>--%>
 
-                </div>
+<%--                </div>--%>
 
-            </div>
+<%--            </div>--%>
 
-        </div>
-    </li>
+<%--        </div>--%>
+<%--    </li>--%>
 
-    <li class="scrollbar-item">
-        <div class="shop-card">
+<%--    <li class="scrollbar-item">--%>
+<%--        <div class="shop-card">--%>
 
-            <div class="card-banner img-holder" style="--width: 540; --height: 720;">
-                <img src="./assets/images/h3.webp" width="540" height="720" loading="lazy"
-                     alt="Coffee Bean Caffeine Eye Cream" class="img-cover">
+<%--            <div class="card-banner img-holder" style="--width: 540; --height: 720;">--%>
+<%--                <img src="./assets/images/h3.webp" width="540" height="720" loading="lazy"--%>
+<%--                     alt="Coffee Bean Caffeine Eye Cream" class="img-cover">--%>
 
-                <!-- <span class="badge" aria-label="20% off">-20%</span> -->
+<%--                <!-- <span class="badge" aria-label="20% off">-20%</span> -->--%>
 
-                <div class="card-actions">
+<%--                <div class="card-actions">--%>
 
-                    <button class="action-btn" aria-label="add to cart">
-                        <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="add to cart">--%>
+<%--                        <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                    <button class="action-btn" aria-label="add to whishlist">
-                        <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="add to whishlist">--%>
+<%--                        <ion-icon name="star-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                    <button class="action-btn" aria-label="compare">
-                        <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="compare">--%>
+<%--                        <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                </div>
-            </div>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <div class="card-content">
+<%--            <div class="card-content">--%>
 
-                <div class="price">
-                    <!-- <del class="del">$39.00</del> -->
+<%--                <div class="price">--%>
+<%--                    <!-- <del class="del">$39.00</del> -->--%>
 
-                    <span class="span">Rs 1800</span>
-                </div>
+<%--                    <span class="span">Rs 1800</span>--%>
+<%--                </div>--%>
 
-                <h3>
-                    <a href="#" class="card-title">Virgin Coconut Hair Conditioner</a>
-                </h3>
+<%--                <h3>--%>
+<%--                    <a href="#" class="card-title">Virgin Coconut Hair Conditioner</a>--%>
+<%--                </h3>--%>
 
-                <div class="card-rating">
+<%--                <div class="card-rating">--%>
 
-                    <div class="rating-wrapper" aria-label="5 start rating">
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                    </div>
+<%--                    <div class="rating-wrapper" aria-label="5 start rating">--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                    </div>--%>
 
-                    <p class="rating-text">5170 reviews</p>
+<%--                    <p class="rating-text">5170 reviews</p>--%>
 
-                </div>
+<%--                </div>--%>
 
-            </div>
+<%--            </div>--%>
 
-        </div>
-    </li>
+<%--        </div>--%>
+<%--    </li>--%>
 
-    <li class="scrollbar-item">
-        <div class="shop-card">
+<%--    <li class="scrollbar-item">--%>
+<%--        <div class="shop-card">--%>
 
-            <div class="card-banner img-holder" style="--width: 540; --height: 720;">
-                <img src="./assets/images/h2.jpg" width="540" height="720" loading="lazy"
-                     alt="Facial cleanser" class="img-cover">
+<%--            <div class="card-banner img-holder" style="--width: 540; --height: 720;">--%>
+<%--                <img src="./assets/images/h2.jpg" width="540" height="720" loading="lazy"--%>
+<%--                     alt="Facial cleanser" class="img-cover">--%>
 
-                <div class="card-actions">
+<%--                <div class="card-actions">--%>
 
-                    <button class="action-btn" aria-label="add to cart">
-                        <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="add to cart">--%>
+<%--                        <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                    <button class="action-btn" aria-label="add to whishlist">
-                        <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="add to whishlist">--%>
+<%--                        <ion-icon name="star-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                    <button class="action-btn" aria-label="compare">
-                        <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
-                    </button>
+<%--                    <button class="action-btn" aria-label="compare">--%>
+<%--                        <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>--%>
+<%--                    </button>--%>
 
-                </div>
-            </div>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <div class="card-content">
+<%--            <div class="card-content">--%>
 
-                <div class="price">
-                    <span class="span">Rs 3400</span>
-                </div>
+<%--                <div class="price">--%>
+<%--                    <span class="span">Rs 3400</span>--%>
+<%--                </div>--%>
 
-                <h3>
-                    <a href="#" class="card-title">Virgin Smooth Frizz Oil</a>
-                </h3>
+<%--                <h3>--%>
+<%--                    <a href="#" class="card-title">Virgin Smooth Frizz Oil</a>--%>
+<%--                </h3>--%>
 
-                <div class="card-rating">
+<%--                <div class="card-rating">--%>
 
-                    <div class="rating-wrapper" aria-label="5 start rating">
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                        <ion-icon name="star" aria-hidden="true"></ion-icon>
-                    </div>
+<%--                    <div class="rating-wrapper" aria-label="5 start rating">--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                        <ion-icon name="star" aria-hidden="true"></ion-icon>--%>
+<%--                    </div>--%>
 
-                    <p class="rating-text">5170 reviews</p>
+<%--                    <p class="rating-text">5170 reviews</p>--%>
 
-                </div>
+<%--                </div>--%>
 
-            </div>
+<%--            </div>--%>
 
-        </div>
-    </li>
+<%--        </div>--%>
+<%--    </li>--%>
+
+    <%
+        }
+
+    %>
+    <%
+    } else {
+    %>
+    <p>No products found.</p>
+    <%
+        }
+    %>
 
 </ul>
 

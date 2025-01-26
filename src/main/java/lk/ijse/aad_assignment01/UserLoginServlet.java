@@ -145,7 +145,8 @@ public class UserLoginServlet extends HttpServlet {
 
                     // Redirect based on role
                     if (role.equals("ADMIN")) {
-                        resp.sendRedirect("adminDashboard.jsp?message=" + URLEncoder.encode(alertMessage, "UTF-8"));
+                        String alertMessagee = "Admin Login Successfully!";
+                        resp.sendRedirect("adminCatagories.jsp?message=" + URLEncoder.encode(alertMessagee, "UTF-8"));
                     } else if ("CUSTOMER".equalsIgnoreCase(role)) {
                         resp.sendRedirect("index.jsp?message=" + URLEncoder.encode(alertMessage, "UTF-8"));
                     } else {

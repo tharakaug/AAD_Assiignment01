@@ -167,10 +167,12 @@ public class CategoryUpdateServlet extends HttpServlet {
 
                 if (i > 0) {
                     System.out.println("Category updated successfully");
-                    resp.sendRedirect("adminCatagories.jsp");
+                    String message = "Update Success";
+                    resp.sendRedirect("adminCatagories.jsp?message=" + message);
                 } else {
                     System.out.println("Category update failed");
-                    resp.sendRedirect("adminCatagories.jsp");
+                    String message = "Update Failed";
+                    resp.sendRedirect("adminCatagories.jsp?message=" + message);
                 }
 
             } catch (SQLException e) {

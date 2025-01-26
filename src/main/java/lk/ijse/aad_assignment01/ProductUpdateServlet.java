@@ -56,10 +56,12 @@ public class ProductUpdateServlet extends HttpServlet {
 
                 if (i > 0) {
                     System.out.println("Product updated successfully");
-                    resp.sendRedirect("adminProduct.jsp");
+                    String message = "Update Success";
+                    resp.sendRedirect("adminProduct.jsp?message=" + message);
                 } else {
+                    String message = "Update Failed";
                     System.out.println("Product update failed");
-                    resp.sendRedirect("adminProduct.jsp");
+                    resp.sendRedirect("adminProduct.jsp?message=" + message);
                 }
 
             } catch (SQLException e) {

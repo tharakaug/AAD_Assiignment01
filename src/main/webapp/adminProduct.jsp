@@ -111,10 +111,10 @@
 
 
 <div style="margin-left: 100px; margin-right: 100px;" >
-<button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
+<button class="btn btn-success mb-4" data-bs-toggle="modal" style="border: white 1px solid; border-radius: 5px; margin-top: 3rem;  padding: 5px 22px; background-color: #ffbb01; font-size: 17px; font-weight:bold ;color: white;" data-bs-target="#addProductModal">Add Product</button>
   <button type="button"
           class="btn btn-product btn-primary mb-5 text-right"
-          style="border: white 1px solid; border-radius: 5px; margin-top: 3rem; padding: 5px 22px; background-color: yellow; color: blue;"
+          style="border: white 1px solid; border-radius: 5px; margin-top: 4.5rem; padding: 5px 22px; background-color: #ffbb01; font-size: 17px; font-weight: bold; color: white;"
           onclick="window.location.href='/AAD_Assignment01_war_exploded/all-product-servlet';">
     View All Products
   </button>
@@ -155,8 +155,8 @@
     <td><img src="<%= product.getImage() %>" alt="<%= product.getName() %>" class="table-img"></td>
 <%--    <td><img src="Assets/Images/laptop.png" alt="Laptop" class="table-img"></td>--%>
     <td>
-      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal" onclick="populateEditModal('<%= product.getId() %>','<%= product.getName() %>', '<%= product.getPrice() %>', '<%= product.getStock() %>', '<%= product.getDescription() %>', '<%= product.getImage() %>')">Update</button>
-      <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteProductModal" onclick="setDeleteConfirmation('<%= product.getId() %>')">Delete</button>
+      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: darkblue; font-size: 14px; font-weight:bold ;color: white;" data-bs-target="#editProductModal" onclick="populateEditModal('<%= product.getId() %>','<%= product.getName() %>', '<%= product.getPrice() %>', '<%= product.getStock() %>', '<%= product.getDescription() %>', '<%= product.getImage() %>')">Update</button>
+      <button class="btn btn-danger btn-sm" data-bs-toggle="modal" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: red; font-size: 14px; font-weight:bold ;color: white;" data-bs-target="#deleteProductModal" onclick="setDeleteConfirmation('<%= product.getId() %>')">Delete</button>
     </td>
   </tr>
   <% } %>
@@ -217,7 +217,7 @@
             <label for="productImage" class="form-label">Product Image</label>
             <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required>
           </div>
-          <button type="submit" class="btn btn-primary">Save Product</button>
+          <button type="submit" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: green; font-size: 14px; font-weight:bold ;color: white;"  class="btn btn-primary">Save Product</button>
         </form>
 
 
@@ -280,13 +280,33 @@
             <input type="file" id="update_product_image" name="update_product_image"/>
           </div>
           <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">
+            <button type="button" class="btn btn-secondary me-2" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: red; font-size: 14px; font-weight:bold ;color: white;" data-bs-dismiss="modal">
               Cancel
             </button>
-            <button id="btn_update_product" type="submit" class="btn btn-primary">Update
+            <button id="btn_update_product" type="submit" style="border: white 1px solid; border-radius: 5px;  padding: 5px 22px; background-color: darkblue; font-size: 14px; font-weight:bold ;color: white;" class="btn btn-primary">Update
             </button>
           </div>
         </form>
+        <%
+          String message = request.getParameter("message");
+          if (message != null && !message.isEmpty()) {
+        %>
+        <script>
+          alert("<%= message %>");
+        </script>
+        <%
+          }
+        %>
+        <%
+          String error = request.getParameter("error");
+          if (error != null) {
+        %>
+        <script>
+          alert("<%= error %>");
+        </script>
+        <%
+          }
+          %>
 
 
       </div>
@@ -332,7 +352,7 @@
 <!--
   - custom js link
 -->
-<script src="./assets/js/script.js" defer></script>
+<script src="./assets/js/adminProduct.js" defer></script>
 
 <!--
   - ionicon link

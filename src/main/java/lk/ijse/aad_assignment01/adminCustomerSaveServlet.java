@@ -13,26 +13,30 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet(name = "categorySave", value = "/category-save")
-public class CategorySaveServlet extends HttpServlet {
+@WebServlet(name = "adminCustomerSave", value = "/admin-customer-save")
+public class adminCustomerSaveServlet extends HttpServlet {
     @Resource(name = "java:comp/env/jdbc/pool")
     private DataSource dataSource;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("categoryName");
-        String description = req.getParameter("description");
-        String image = req.getParameter("categoryImage");
-
-        System.out.println(name + " " + description + " " + image);
+        String name = req.getParameter("name");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+        String role = req.getParameter("role");
+        String active = req.getParameter("active");
+        String image = req.getParameter("image");
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "INSERT INTO categories (name, description, image_url) VALUES (?, ?, ?)")) {
+                     "INSERT INTO users (name, email, password, role, is_active, image_url) VALUES (?, ?, ?, ?, ?, ?)")) {
 
             preparedStatement.setString(1, name);
-            preparedStatement.setString(2, description);
-            preparedStatement.setString(3, image);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, password);
+            preparedStatement.setString(4, role);
+            preparedStatement.setString(5, active);
+            preparedStatement.setString(6, image);
 
             int i = preparedStatement.executeUpdate();
 
@@ -40,11 +44,11 @@ public class CategorySaveServlet extends HttpServlet {
             connection.close();
 
             if (i > 0) {
-                String message = "Category saved successfully";
-                resp.sendRedirect("adminDashboard.jsp?message=" + message);
+                String message = "Customer saved successfully";
+                resp.sendRedirect("adminCustomer.jsp?message=" + message);
             } else {
-                String message = "Category save failed";
-                resp.sendRedirect("adminDashboard.jsp?message=" + message);
+                String message = "Failed to save customer";
+                resp.sendRedirect("adminCustomer.jsp?message=" + message);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -52,5 +56,3 @@ public class CategorySaveServlet extends HttpServlet {
 
     }
 }
-
-
